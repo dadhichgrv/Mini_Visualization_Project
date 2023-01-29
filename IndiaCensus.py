@@ -30,7 +30,6 @@ btn = st.sidebar.button('Click to Plot')
 #st.dataframe(df[[selected_first_param, selected_second_param]])
 
 
-
 if btn:
     if selected_state == 'Overall India':
 
