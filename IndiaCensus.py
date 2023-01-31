@@ -1,12 +1,12 @@
 
 import pandas as pd
-import numpy as np
 import streamlit as st
 import plotly.express as px
 import matplotlib.pyplot as plt
 
 st.set_page_config(layout='wide')
 plt.style.use('fivethirtyeight')
+
 
 df = pd.read_csv('india_census.csv')
 
@@ -39,28 +39,33 @@ if btn:
         fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
                                 size=selected_first_param,
                                 color=selected_second_param,
-                                mapbox_style= "carto-positron", zoom=3, hover_name = 'District')
+                                mapbox_style= "carto-positron", zoom=3, hover_name = 'District',
+                                color_continuous_scale=px.colors.sequential.Inferno)
+
         st.plotly_chart(fig)
 
         # Sun Burst Chart
         st.info("Sun Burst Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig = px.sunburst(df, path=['State', 'District'], values=selected_first_param, color= selected_second_param)
+        fig = px.sunburst(df, path=['State', 'District'], values=selected_first_param, color= selected_second_param,
+                          color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig)
 
         # Tree Map
         st.info("Tree Map depicting " + selected_first_param + " distribution for " + selected_state)
         fig2 = px.treemap(df, path=[px.Constant('India'), 'State', 'District'], values=selected_first_param,
-                          color=selected_second_param)
+                          color=selected_second_param, color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig2)
 
         # Bar Chart
         st.info("Bar Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig3 = px.bar(df, x='State', y=selected_first_param, color = selected_second_param, text_auto=True)
+        fig3 = px.bar(df, x='State', y=selected_first_param, color = selected_second_param, text_auto=True,
+                      color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig3)
 
         # Pie Chart
         st.info("Pie Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig4 = px.pie(df, names='State', values=selected_first_param, color=selected_second_param)
+        fig4 = px.pie(df, names='State', values=selected_first_param, color=selected_second_param,
+                      color_discrete_sequence=px.colors.sequential.Inferno)
         st.plotly_chart(fig4)
 
     else:
@@ -72,27 +77,32 @@ if btn:
         fig = px.scatter_mapbox(temp_df, lat='Latitude', lon='Longitude',
                                 size=selected_first_param,
                                 color=selected_second_param,
-                                mapbox_style="carto-positron", zoom=3, hover_name='District')
+                                mapbox_style="carto-positron", zoom=3, hover_name='District',
+                                color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig)
 
         # Sun Burst Chart
         st.info("Sun Burst Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig1 = px.sunburst(temp_df, path=['State', 'District'], values=selected_first_param, color= selected_second_param)
+        fig1 = px.sunburst(temp_df, path=['State', 'District'], values=selected_first_param,
+                           color= selected_second_param, color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig1)
 
         # Tree Map
         st.info("Tree Map depicting " + selected_first_param + " distribution for " + selected_state)
-        fig2 = px.treemap(temp_df, path=[px.Constant('India'), 'State', 'District'], values=selected_first_param, color= selected_second_param)
+        fig2 = px.treemap(temp_df, path=[px.Constant('India'), 'State', 'District'], values=selected_first_param,
+                          color= selected_second_param, color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig2)
 
         # Bar Chart
         st.info("Bar Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig3 = px.bar(temp_df, x='District', y = selected_first_param, color = selected_second_param, text_auto=True )
+        fig3 = px.bar(temp_df, x='District', y = selected_first_param, color = selected_second_param, text_auto=True,
+                      color_continuous_scale=px.colors.sequential.Inferno)
         st.plotly_chart(fig3)
 
         # Pie Chart
         st.info("Pie Chart depicting " + selected_first_param + " distribution for " + selected_state)
-        fig4 = px.pie(temp_df, names='District', values=selected_first_param, color=selected_second_param)
+        fig4 = px.pie(temp_df, names='District', values=selected_first_param, color=selected_second_param,
+                      color_discrete_sequence=px.colors.sequential.Inferno)
         st.plotly_chart(fig4)
 
 
